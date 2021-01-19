@@ -1,74 +1,75 @@
-const directionArray = ["N", "E", "S", "W"];
+const each = require("jest-each").default;
 
-const getPreviousDirectionIndex = (direction) =>
-  (directionArray.indexOf(direction) + directionArray.length - 1) %
-  directionArray.length;
-
-const getNextDirectionIndex = (direction) =>
-  (directionArray.indexOf(direction) + directionArray.length + 1) %
-  directionArray.length;
-
-const rover = (facing, x, y) => ({
-  execute(commands) {
-    commands.forEach((command) => {
-      switch (command) {
-        case "l":
-          facing = directionArray[getPreviousDirectionIndex(facing)];
-          break;
-        case "r":
-          facing = directionArray[getNextDirectionIndex(facing)];
-          break;
-        case "f":
-            y--;
-            break;
-        default:
-          throw new Error("false direction -.-'");
-      }
-    });
-    return {facing: facing, x, y};
-  },
-  get x() {return x;},
-  get y() {return y;}
-});
+const {Rover, f, b, l, r, N, E, S, W} = require('./rover');
 
 describe("mars rover rotation", () => {
-  it('rover directs N, get command "l", direct W', () => {
-    expect(rover("N").execute(["l"]).facing).toBe("W");
+  each([
+    [N, [l], W],
+    [N, [r], E],
+    [W, [l], S],
+    [W, [r], N],
+    [W, [r, r], E],
+  ]).it(
+    `''%s' turn '%s' then expected facing: '%s'`,
+    (facing, command, expectedFacing) => {
+      const ro = Rover(facing);
+      ro.execute(command);
+      expect(ro.facing).toBe(expectedFacing);
+    }
+  );
+
+  it("access rover facing as return value", () => {
+    const rover = Rover(W);
+    let { facing } = rover.execute([r]);
+    expect(facing).toBe(N);
+    facing = rover.execute([r]).facing;
+    expect(facing).toBe(E);
   });
 
-  it('rover directs N, get command "r", direct E', () => {
-    expect(rover("N").execute(["r"]).facing).toBe("E");
-  });
-
-  it('rover directs W, get command "l", direct S', () => {
-    const {facing} = rover("W").execute(["l"]);
-    expect(facing).toBe("S");
-  });
-
-  it('rover directs W, get command "r", direct N', () => {
-    const {facing} = rover("W").execute(["r"]);
-    expect(facing).toBe("N");
-  });
-
-  it('rover directs W, get command "r", direct N', () => {
-    const {facing} = rover("W").execute(["r", "r"]);
-    expect(facing).toBe("E");
-  });
-
-  it('rover directs W, get command "r", direct N', () => {
-    const r = rover("W");
-    let {facing} = r.execute(["r"]);
-    expect(facing).toBe("N");
-    facing = r.execute(["r"]).facing;
-    expect(facing).toBe("E");
+  it("access rover facing as getter value", () => {
+    const rover = Rover(W);
+    rover.execute([r]);
+    expect(rover.facing).toBe(N);
+    rover.execute([r]);
+    expect(rover.facing).toBe(E);
   });
 });
 
 describe("mars rover movement", () => {
-  it("rover is on point (3,3) directs 'N' and command 'f' executed, new point is (3,2)", () => {
-      const r = rover("N",3,3);
-      r.execute(["f"]);
-      expect(r.x).toBe(3);
-      expect(r.y).toBe(2);
-    });
+  // the world looks like this:
+  // (0,0)  ...  (5,0)
+  // ...    ...  ...
+  // (5,0)  ...  (5,5)
+
+  const forwardCommand = f;
+  each([
+    [N, 3, 2],
+    [E, 4, 3],
+    [S, 3, 4],
+    [W, 2, 3],
+  ]).it(
+    `'${forwardCommand}', '%s' then y: '%d' x: '%d'`,
+    (direction, expectedX, expectedY) => {
+      const rover = Rover(direction, 3, 3);
+      rover.execute([forwardCommand]);
+      expect(rover.x).toBe(expectedX);
+      expect(rover.y).toBe(expectedY);
+    }
+  );
+
+  const backwardCommand = b;
+  each([
+    [N, 3, 4],
+    [E, 2, 3],
+    [S, 3, 2],
+    [W, 4, 3],
+  ]).it(
+    `'${backwardCommand}', '%s' then y: '%d' x: '%d'`,
+    (direction, expectedX, expectedY) => {
+      const rover = Rover(direction, 3, 3);
+      rover.execute([backwardCommand]);
+      expect(rover.x).toBe(expectedX);
+      expect(rover.y).toBe(expectedY);
+    }
+  );
 });
