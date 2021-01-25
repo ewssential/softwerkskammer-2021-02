@@ -6,26 +6,26 @@ const DIRECTION = {
     S: "S",
     W: "W"
   }
-  
+
   const MOVEMENTS = {
     f: "f",
     b: "b",
     l: "l",
     r: "r"
   }
-  
+
   const f = MOVEMENTS.f;
   const b = MOVEMENTS.b;
   const l = MOVEMENTS.l;
   const r = MOVEMENTS.r;
-  
+
   const N = DIRECTION.N;
   const E = DIRECTION.E;
   const S = DIRECTION.S;
   const W = DIRECTION.W;
-  
+
   const directionArray = [N, E, S, W];
-  
+
   const getIndexOfMinusOne = (direction) => directionArray.indexOf(direction) - 1;
   const getIndexOfPlusOne = (direction) => directionArray.indexOf(direction) + 1;
   const normalizeDirectionIndex = (index) =>
@@ -34,10 +34,10 @@ const DIRECTION = {
     normalizeDirectionIndex(getIndexOfMinusOne(direction));
   const getNextDirectionIndex = (direction) =>
     normalizeDirectionIndex(getIndexOfPlusOne(direction));
-  
+
   const Rover = (facing, x, y) => {
     const move = (command) => {
-      const incrementer = command == b ? -1 : 1;
+      const incrementer = command === b ? -1 : 1;
       switch (facing) {
         case N:
           y -= incrementer;
@@ -55,7 +55,7 @@ const DIRECTION = {
           throw new Error("wrong facing -.-'");
       }
     };
-  
+
     return {
       execute(commands) {
         commands.forEach((command) => {
@@ -76,7 +76,7 @@ const DIRECTION = {
         });
         return { facing: facing, x, y };
       },
-  
+
       get x() {
         return x;
       },
@@ -88,5 +88,5 @@ const DIRECTION = {
       },
     };
   };
- 
+
 module.exports = {Rover, f, b, l, r, N, E, S, W};
