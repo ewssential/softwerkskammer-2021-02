@@ -24,18 +24,43 @@ const E = DIRECTION.E;
 const S = DIRECTION.S;
 const W = DIRECTION.W;
 
-const directionArray = [N, E, S, W];
-
-const getIndexOfMinusOne = (direction) => directionArray.indexOf(direction) - 1;
-const getIndexOfPlusOne = (direction) => directionArray.indexOf(direction) + 1;
-const normalizeDirectionIndex = (index) =>
-  (index + directionArray.length) % directionArray.length;
-const getPreviousDirectionIndex = (direction) =>
-  normalizeDirectionIndex(getIndexOfMinusOne(direction));
-const getNextDirectionIndex = (direction) =>
-  normalizeDirectionIndex(getIndexOfPlusOne(direction));
-
 const Rover = (facing, x, y) => {
+
+  const turnLeftFacing = () => {
+    switch (facing) {
+      case N:
+        facing = W;
+        break;
+      case E:
+        facing = N;
+        break;
+      case S:
+        facing = E;
+        break;
+      case W:
+        facing = S;
+        break;
+    }
+  }
+  const turnRightFacing = () => {
+    switch (facing) {
+      case N:
+        facing = E;
+        break;
+      case E:
+        facing = S;
+        break;
+      case S:
+        facing = W;
+        break;
+      case W:
+        facing = N;
+        break;
+    }
+  }
+
+  const turn = (command) => (command === l ? turnLeftFacing : turnRightFacing)();
+
   const move = (command) => {
     const incrementer = command === b ? -1 : 1;
     switch (facing) {
@@ -61,10 +86,8 @@ const Rover = (facing, x, y) => {
       commands.forEach((command) => {
         switch (command) {
           case l:
-            facing = directionArray[getPreviousDirectionIndex(facing)];
-            break;
           case r:
-            facing = directionArray[getNextDirectionIndex(facing)];
+            turn(command);
             break;
           case f:
           case b:
@@ -74,7 +97,7 @@ const Rover = (facing, x, y) => {
             throw new Error("wrong command -.-'");
         }
       });
-      return { facing: facing, x, y };
+      return { facing, x, y };
     },
 
     get x() {
