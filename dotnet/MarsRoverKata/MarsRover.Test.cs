@@ -37,10 +37,10 @@ namespace MarsRoverKata
         [InlineData(Direction.East, Direction.South)]
         [InlineData(Direction.South, Direction.West)]
         [InlineData(Direction.West, Direction.North)]
-        public void Rotate_Right_Test(Direction originalDirection, Direction eventualDirection)
+        public void Rotate_Right_Test(Direction initialDirection, Direction expectedDirection)
         {
-            var rover = new MarsRover(StartPosition, originalDirection);
-            Assert.Equal(eventualDirection, rover.Execute(new[] {'r'}).Direction);
+            var rover = new MarsRover(StartPosition, initialDirection);
+            Assert.Equal(expectedDirection, rover.Execute(new[] {'r'}).Direction);
         }
 
         [Theory]
@@ -48,10 +48,10 @@ namespace MarsRoverKata
         [InlineData(Direction.West, Direction.South)]
         [InlineData(Direction.South, Direction.East)]
         [InlineData(Direction.East, Direction.North)]
-        public void Rotate_Left_Test(Direction originalDirection, Direction eventualDirection)
+        public void Rotate_Left_Test(Direction initialDirection, Direction expectedDirection)
         {
-            var rover = new MarsRover(StartPosition, originalDirection);
-            Assert.Equal(eventualDirection, rover.Execute(new[] {'l'}).Direction);
+            var rover = new MarsRover(StartPosition, initialDirection);
+            Assert.Equal(expectedDirection, rover.Execute(new[] {'l'}).Direction);
         }
     }
 
