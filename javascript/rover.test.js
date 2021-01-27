@@ -1,6 +1,6 @@
 const each = require("jest-each").default;
 
-const {Rover, f, b, l, r, N, E, S, W} = require('./rover');
+const { Rover, f, b, l, r, N, E, S, W } = require("./rover");
 
 describe("mars rover rotation", () => {
   each([
@@ -72,4 +72,11 @@ describe("mars rover movement", () => {
       expect(rover.y).toBe(expectedY);
     }
   );
+
+  it("rover turns north", () => {
+    const rover = Rover(N, 1, 1);
+    rover.execute([f]);
+    expect(rover.x).toBe(1);
+    expect(rover.y).toBe(1);
+  });
 });

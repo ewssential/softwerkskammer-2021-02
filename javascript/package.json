@@ -4,7 +4,11 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "jest"
+    "test": "jest",
+    "test-debug": "node --inspect-brk=0.0.0.0:9229 node_modules/.bin/jest --runInBand",
+    "docker-build": "docker build -t swk-rover-js .",
+    "docker-run": "docker run --rm -v $(pwd):/usr/src/app swk-rover-js:latest node_modules/.bin/jest",
+    "docker-run-debug": "docker run --rm -p 9229:9229 -v $(pwd):/usr/src/app swk-rover-js:latest node --inspect-brk=0.0.0.0:9229 node_modules/.bin/jest --runInBand"
   },
   "author": "",
   "license": "ISC",

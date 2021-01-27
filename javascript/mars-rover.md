@@ -1,5 +1,6 @@
 ## Setup
 nodejs (runs with 10.16.3)
+
 VS Code
 ### VS CodePlugins
 we used:
@@ -7,6 +8,16 @@ we used:
 - [Test Explorer UI](https://marketplace.visualstudio.com/items?itemName=hbenl.vscode-test-explorer)
 - [Test Explorer Live Share](https://marketplace.visualstudio.com/items?itemName=hbenl.vscode-test-explorer-liveshare)
 - [Jest Test Eplorer](https://marketplace.visualstudio.com/items?itemName=kavod-io.vscode-jest-test-adapter)
+
+### Docker FUN FUN FUN
+Docker is needed
+
+Docker Commands with no node installation:
+  1. Build Image Command: docker build -t swk-rover-js .
+  2. Run Tests Command: docker run --rm -v $(pwd):/usr/src/app swk-rover-js:latest node_modules/.bin/jest
+  3. Debug Tests Command: docker run --rm -p 9229:9229 -v $(pwd):/usr/src/app swk-rover-js:latest node --inspect-brk=0.0.0.0:9229 node_modules/.bin/jest --runInBand
+
+npm commands for Docker -- see package.json
 
 ## Your Task
 You’re part of the team that explores Mars by sending remotely controlled vehicles to the surface of the planet. Develop an API that translates the commands sent from earth to instructions that are understood by the rover.
