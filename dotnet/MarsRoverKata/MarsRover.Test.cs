@@ -59,14 +59,6 @@ namespace MarsRoverKata
     {
         private static readonly Position StartPosition = new(3, 3);
 
-        [Theory]
-        [MemberData(nameof(Move_Forward_Test_Data))]
-        public void Move_Forward_Test(Direction direction, Position expectedPosition)
-        {
-            var rover = new MarsRover(StartPosition, direction);
-            Assert.Equal(expectedPosition, rover.Execute(new[] {'f'}).Position);
-        }
-
         public static List<object[]> Move_Forward_Test_Data()
         {
             return new()
@@ -76,6 +68,14 @@ namespace MarsRoverKata
                 new object[] {Direction.South, new Position(StartPosition.X, StartPosition.Y + 1)},
                 new object[] {Direction.West, new Position(StartPosition.X - 1, StartPosition.Y)}
             };
+        }
+
+        [Theory]
+        [MemberData(nameof(Move_Forward_Test_Data))]
+        public void Move_Forward_Test(Direction direction, Position expectedPosition)
+        {
+            var rover = new MarsRover(StartPosition, direction);
+            Assert.Equal(expectedPosition, rover.Execute(new[] {'f'}).Position);
         }
 
         [Theory]
