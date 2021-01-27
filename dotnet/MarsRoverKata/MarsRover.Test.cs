@@ -18,13 +18,13 @@ namespace MarsRoverKata
         [Fact]
         public void Constructor_PositionX_Test()
         {
-            Assert.Equal(23, new MarsRover(new Position(23, 42), Direction.North).Position.X);
+            Assert.Equal(23, new MarsRover(new Position(23, 42), Direction.North).X);
         }
 
         [Fact]
         public void Constructor_PositionY_Test()
         {
-            Assert.Equal(42, new MarsRover(new Position(23, 42), Direction.North).Position.Y);
+            Assert.Equal(42, new MarsRover(new Position(23, 42), Direction.North).Y);
         }
     }
 
@@ -75,7 +75,8 @@ namespace MarsRoverKata
         public void Move_Forward_Test(Direction direction, Position expectedPosition)
         {
             var rover = new MarsRover(StartPosition, direction);
-            Assert.Equal(expectedPosition, rover.Execute(new[] {'f'}).Position);
+            rover.Execute(new[] {'f'});
+            Assert.Equal(expectedPosition, new Position(rover.X, rover.Y));
         }
 
         [Theory]
@@ -83,7 +84,8 @@ namespace MarsRoverKata
         public void Move_Backward_Test(Direction direction, Position expectedPosition)
         {
             var rover = new MarsRover(StartPosition, direction);
-            Assert.Equal(expectedPosition, rover.Execute(new[] {'b'}).Position);
+            rover.Execute(new[] {'b'});
+            Assert.Equal(expectedPosition, new Position(rover.X, rover.Y));
         }
 
         public static List<object[]> Move_Backward_Test_Data()

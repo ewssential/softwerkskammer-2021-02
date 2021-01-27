@@ -20,7 +20,8 @@ namespace MarsRoverKata
         private Position _position;
         private Direction _direction;
 
-        public Position Position => _position;
+        public int X => _position.X;
+        public int Y => _position.Y;
 
         public Direction Direction => _direction;
 
