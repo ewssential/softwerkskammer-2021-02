@@ -10,6 +10,12 @@ namespace MarsRoverKata
             public const char Forward = 'f';
             public const char Backward = 'b';
         }
+
+        public static class Rotation
+        {
+            public const char Right = 'r';
+            public const char Left = 'l';
+        }
         
         private Position _position;
         private Direction _direction;
@@ -30,10 +36,10 @@ namespace MarsRoverKata
             {
                 switch (command)
                 {
-                    case 'r':
+                    case Rotation.Right:
                         _direction = _direction.Next();
                         break;
-                    case 'l':
+                    case Rotation.Left:
                         _direction = _direction.Previous();
                         break;
                     case Movement.Forward:
