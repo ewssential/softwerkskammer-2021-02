@@ -37,9 +37,11 @@ describe("mars rover rotation", () => {
 
 describe("mars rover movement", () => {
   // the world looks like this:
-  // (0,0)  ...  (5,0)
-  // ...    ...  ...
-  // (5,0)  ...  (5,5)
+  //           N
+  //   (0,0)  ...  (5,0)
+  // W ...    ...  ...    E
+  //   (5,0)  ...  (5,5)
+  //          S
 
   const forwardCommand = f;
   each([
