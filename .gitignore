@@ -1,7 +1,7 @@
 #overall garbage
 */.idea
 */.settings
-*/.vscode
+**/.vscode
 
 #nogarbage
 !*/.vscode/launch.json
