@@ -1,1 +1,20 @@
-*/node_modules/
+#overall garbage
+*/.idea
+*/.settings
+*/.vscode
+
+#nogarbage
+!*/.vscode/launch.json
+
+#javascript garbage
+javascript/node_modules/
+
+#java garbage
+java/**/*.class
+java/target
+java/*.iml
+
+#dotnet garbage
+dotnet/*/bin
+dotnet/*/obj
+dotnet/*/*.user
