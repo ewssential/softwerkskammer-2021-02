@@ -1,0 +1,11 @@
+version: '3.8'
+
+services: 
+  tests:
+    image: mcr.microsoft.com/dotnet/sdk:5.0-focal
+    volumes:
+      - .:/app
+    working_dir: /app
+    command: 
+      - dotnet
+      - test
