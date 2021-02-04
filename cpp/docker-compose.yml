@@ -1,0 +1,13 @@
+version: '3.8'
+
+services:
+  shell:
+    build:
+      context: .
+      args:
+        - UID=${UID}
+        - GID=${GID}
+    volumes:
+    - .:/home/kata
+    command: /bin/bash
+
