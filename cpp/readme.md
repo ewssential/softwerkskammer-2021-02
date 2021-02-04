@@ -92,7 +92,7 @@ Docker Compose facilitates the application of docker above a little bit.
 
 ### Start Bash in Container
 
-    UID=${UID} GID=${GID} docker-compose run shell
+    UID=${UID} GID=${GID} docker-compose run --rm shell
 
 Continue with step _Configure_ above.
 
