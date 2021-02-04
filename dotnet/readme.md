@@ -40,5 +40,5 @@ time of writing - has an issue with nuget certificate chaining.
 
 In a console from within this directory - where `MarsRoverKata.sln` ist located - just type:
 
-    docker-compose run tests
+    docker-compose run --rm tests
 
